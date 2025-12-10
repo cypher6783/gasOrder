@@ -5,6 +5,8 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
+import bcrypt from 'bcryptjs';
+import { PrismaClient } from '@prisma/client';
 import { logger } from './utils/logger';
 import { errorHandler } from './middleware/errorHandler';
 import { notFoundHandler } from './middleware/notFoundHandler';
@@ -46,12 +48,11 @@ app.get('/health', (req, res) => {
 // Temporary endpoint to create admin - DELETE AFTER USE!
 app.post('/create-admin-temp', async (req, res) => {
   try {
-    const { PrismaClient } = await import('@prisma/client');
-    const bcrypt = await import('bcryptjs');
     const prisma = new PrismaClient();
     
     const existingAdmin = await prisma.user.findFirst({ where: { role: 'ADMIN' } });
     if (existingAdmin) {
+      await prisma.$disconnect();
       return res.json({ success: true, message: 'Admin already exists', email: existingAdmin.email });
     }
     
