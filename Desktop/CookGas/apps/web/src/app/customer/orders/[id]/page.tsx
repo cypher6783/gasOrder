@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { orderService, Order } from '@/services/order.service';
 import { useAuthStore } from '@/store/auth';
+import { showAlert } from '@/lib/alert';
 
 export default function OrderDetailsPage({ params }: { params: { id: string } }) {
   const router = useRouter();
