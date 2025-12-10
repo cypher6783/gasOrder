@@ -43,6 +43,39 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Temporary endpoint to create admin - DELETE AFTER USE!
+app.post('/create-admin-temp', async (req, res) => {
+  try {
+    const { PrismaClient } = await import('@prisma/client');
+    const bcrypt = await import('bcryptjs');
+    const prisma = new PrismaClient();
+    
+    const existingAdmin = await prisma.user.findFirst({ where: { role: 'ADMIN' } });
+    if (existingAdmin) {
+      return res.json({ success: true, message: 'Admin already exists', email: existingAdmin.email });
+    }
+    
+    const passwordHash = await bcrypt.hash('admin123', 12);
+    const admin = await prisma.user.create({
+      data: {
+        email: 'admin@jupitra.com',
+        phone: '+2348000000000',
+        passwordHash,
+        firstName: 'Admin',
+        lastName: 'User',
+        role: 'ADMIN',
+        emailVerified: true,
+        phoneVerified: true,
+      },
+    });
+    
+    await prisma.$disconnect();
+    res.json({ success: true, message: 'Admin created!', credentials: { email: admin.email, password: 'admin123' } });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
