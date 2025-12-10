@@ -31,7 +31,7 @@ export default function PaymentCallbackPage() {
       
       // Paystack returns { status: true, message: '...', data: {...} }
       // The status is a boolean, not a string
-      if (result && result.status === true) {
+      if (result && result.status) {
         setStatus('success');
         setMessage('Payment successful! Redirecting...');
         setTimeout(() => {
