@@ -2,14 +2,19 @@ import rateLimit from 'express-rate-limit';
 import redis from '../utils/redis';
 
 export const createRateLimiter = (windowMs: number, max: number) => {
-  return rateLimit({
+  // If Redis is available, use it for distributed rate limiting
+  // Otherwise, use in-memory store (default)
+  const config: any = {
     windowMs,
     max,
     message: 'Too many requests from this IP, please try again later.',
     standardHeaders: true,
     legacyHeaders: false,
-    // Use Redis for distributed rate limiting
-    store: {
+  };
+
+  // Only add Redis store if Redis is available
+  if (redis) {
+    config.store = {
       async increment(key: string) {
         const current = await redis.incr(key);
         if (current === 1) {
@@ -26,8 +31,11 @@ export const createRateLimiter = (windowMs: number, max: number) => {
       async resetKey(key: string) {
         await redis.del(key);
       },
-    },
-  });
+    };
+  }
+  // If Redis is not available, express-rate-limit will use its default in-memory store
+
+  return rateLimit(config);
 };
 
 // Specific rate limiters
