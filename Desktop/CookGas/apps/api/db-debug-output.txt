@@ -1,0 +1,12 @@
+--- VENDORS ---
+ID: 44f22daa-8039-4391-b9db-c566d2daeec8 | User: angelmartha1010@gmail.com (Martha ) | BusName: Hyde Gas incorporated | Status: VERIFIED
+ID: 2fe06e5a-6d63-400d-9602-d4a1016bc183 | User: test@example.com (Test) | BusName: Why Should I tell You? | Status: SUSPENDED
+
+--- COOKING GAS PRODUCTS ---
+ID: d96a50e2-d13f-4a51-bfc5-cfc36a147b1b | VendorID: 44f22daa-8039-4391-b9db-c566d2daeec8 | Price: 1200 | Stock: 999980 | Active: true
+
+--- LAST 5 ORDERS ---
+ID: 7af480de-66f1-4aad-9479-8415d81f9c2a | VendorID: 44f22daa-8039-4391-b9db-c566d2daeec8 | CustomerID: 6212aa60-c32b-4b96-b46a-49d0aaeb361c | Status: PENDING | Total: 8200
+ID: 27f198e4-5a3f-48b5-ac64-de05584816e3 | VendorID: 44f22daa-8039-4391-b9db-c566d2daeec8 | CustomerID: 6212aa60-c32b-4b96-b46a-49d0aaeb361c | Status: PENDING | Total: 5800
+ID: c415fa0d-ae96-44f6-bad7-28223cc8c6fb | VendorID: 44f22daa-8039-4391-b9db-c566d2daeec8 | CustomerID: 6212aa60-c32b-4b96-b46a-49d0aaeb361c | Status: PENDING | Total: 7000
+ID: e85d90a7-4e34-4db0-a2ea-04cc1f280302 | VendorID: 44f22daa-8039-4391-b9db-c566d2daeec8 | CustomerID: 6212aa60-c32b-4b96-b46a-49d0aaeb361c | Status: PENDING | Total: 5800

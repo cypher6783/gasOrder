@@ -1,0 +1,317 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [postgis]
+}
+
+enum UserRole {
+  CUSTOMER
+  VENDOR
+  ADMIN
+}
+
+enum VendorStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+  SUSPENDED
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  IN_TRANSIT
+  DELIVERED
+  CANCELLED
+  DISPUTED
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum DisputeStatus {
+  OPEN
+  INVESTIGATING
+  RESOLVED
+  CLOSED
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  phone         String    @unique
+  passwordHash  String
+  firstName     String
+  lastName      String
+  role          UserRole  @default(CUSTOMER)
+  isActive      Boolean   @default(true)
+  emailVerified Boolean   @default(false)
+  phoneVerified Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  customer      Customer?
+  vendor        Vendor?
+  refreshTokens RefreshToken[]
+
+  @@index([email])
+  @@index([phone])
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+}
+
+model Customer {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  addresses Address[]
+  orders    Order[]
+  reviews   Review[]
+  disputes  Dispute[]
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Vendor {
+  id              String        @id @default(uuid())
+  userId          String        @unique
+  businessName    String
+  businessAddress String
+  latitude        Float
+  longitude       Float
+  status          VendorStatus  @default(PENDING)
+  rating          Float         @default(0)
+  totalReviews    Int           @default(0)
+  deliveryFee     Float         @default(1000)
+  
+  // KYC Documents
+  cacDocument     String?
+  idDocument      String?
+  proofOfAddress  String?
+  
+  verifiedAt      DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products        Product[]
+  orders          Order[]
+  reviews         Review[]
+  payouts         Payout[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([latitude, longitude])
+}
+
+model Address {
+  id         String   @id @default(uuid())
+  customerId String
+  label      String   // e.g., "Home", "Office"
+  street     String
+  city       String
+  state      String
+  latitude   Float
+  longitude  Float
+  isDefault  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  orders   Order[]
+
+  @@index([customerId])
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  vendorId    String
+  name        String
+  description String?
+  price       Float
+  stock       Int      @default(0)
+  unit        String   // e.g., "kg", "12.5kg cylinder"
+  imageUrl    String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  vendor     Vendor      @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  orderItems OrderItem[]
+
+  @@index([vendorId])
+  @@index([isActive])
+}
+
+model Order {
+  id              String        @id @default(uuid())
+  orderNumber     String        @unique
+  customerId      String
+  vendorId        String
+  addressId       String
+  
+  subtotal        Float
+  deliveryFee     Float
+  total           Float
+  
+  status          OrderStatus   @default(PENDING)
+  paymentStatus   PaymentStatus @default(PENDING)
+  
+  // Delivery tracking
+  estimatedTime   DateTime?
+  deliveredAt     DateTime?
+  deliveryOtp     String?
+  deliveryPhoto   String?
+  
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  customer   Customer    @relation(fields: [customerId], references: [id])
+  vendor     Vendor      @relation(fields: [vendorId], references: [id])
+  address    Address     @relation(fields: [addressId], references: [id])
+  items      OrderItem[]
+  payment    Payment?
+  dispute    Dispute?
+  tracking   OrderTracking[]
+
+  @@index([customerId])
+  @@index([vendorId])
+  @@index([status])
+  @@index([orderNumber])
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float
+  subtotal  Float
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model OrderTracking {
+  id        String   @id @default(uuid())
+  orderId   String
+  latitude  Float
+  longitude Float
+  timestamp DateTime @default(now())
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([timestamp])
+}
+
+enum EscrowState {
+  PENDING
+  HELD
+  RELEASED
+  REFUNDED
+}
+
+model Payment {
+  id                String        @id @default(uuid())
+  orderId           String        @unique
+  amount            Float
+  status            PaymentStatus @default(PENDING)
+  paymentMethod     String        // e.g., "paystack", "flutterwave"
+  transactionRef    String?       @unique // Internal unique reference
+  paymentGatewayRef String?       // PSP reference (e.g. Paystack reference)
+  escrowState       EscrowState   @default(PENDING)
+  metadata          Json?         // Store additional PSP metadata/logs
+  paidAt            DateTime?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  
+  payoutId          String?
+  payout            Payout?       @relation(fields: [payoutId], references: [id])
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([transactionRef])
+  @@index([payoutId])
+}
+
+model Payout {
+  id            String   @id @default(uuid())
+  vendorId      String
+  amount        Float
+  status        String   // "pending", "completed", "failed"
+  reference     String?  @unique
+  processedAt   DateTime?
+  createdAt     DateTime @default(now())
+
+  vendor Vendor @relation(fields: [vendorId], references: [id])
+  payments Payment[]
+
+  @@index([vendorId])
+  @@index([status])
+}
+
+model Review {
+  id         String   @id @default(uuid())
+  customerId String
+  vendorId   String
+  rating     Int      // 1-5
+  comment    String?
+  createdAt  DateTime @default(now())
+
+  customer Customer @relation(fields: [customerId], references: [id])
+  vendor   Vendor   @relation(fields: [vendorId], references: [id])
+
+  @@index([customerId])
+  @@index([vendorId])
+}
+
+model Dispute {
+  id          String        @id @default(uuid())
+  orderId     String        @unique
+  customerId  String
+  reason      String
+  description String
+  evidence    String[]      // Array of image URLs
+  status      DisputeStatus @default(OPEN)
+  resolution  String?
+  resolvedAt  DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  order    Order    @relation(fields: [orderId], references: [id])
+  customer Customer @relation(fields: [customerId], references: [id])
+
+  @@index([orderId])
+  @@index([customerId])
+  @@index([status])
+}
