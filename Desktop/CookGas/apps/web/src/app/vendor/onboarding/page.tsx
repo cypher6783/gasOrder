@@ -37,18 +37,18 @@ export default function VendorOnboarding() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
           Complete Your Vendor Profile
         </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
+        <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
           Tell us about your gas business to get started
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-white dark:bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
@@ -57,7 +57,7 @@ export default function VendorOnboarding() {
             )}
 
             <div>
-              <label htmlFor="businessName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="businessName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Business Name
               </label>
               <div className="mt-1">
@@ -75,7 +75,7 @@ export default function VendorOnboarding() {
             </div>
 
             <div>
-              <label htmlFor="businessAddress" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="businessAddress" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Business Address
               </label>
               <div className="mt-1">

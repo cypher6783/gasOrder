@@ -122,7 +122,7 @@ export default function VendorLayout({
   )
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex transition-colors duration-300">
       {/* Mobile Header with Hamburger */}
       <div className="md:hidden fixed top-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-md z-50 px-4 py-3 flex items-center justify-between">
         <Link href="/" className="text-xl font-bold text-primary-600 dark:text-primary-400">

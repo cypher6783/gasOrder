@@ -60,11 +60,11 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       {/* Header */}
-      <header className="bg-white shadow">
+      <header className="bg-white dark:bg-gray-800 shadow dark:shadow-gray-900/50 transition-colors">
         <div className="container-custom py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Admin Dashboard</h1>
           <button
             onClick={handleLogout}
             className="btn-outline text-sm px-4 py-2"
@@ -83,11 +83,11 @@ export default function AdminDashboard() {
         )}
 
         {/* Welcome Section */}
-        <div className="card mb-8">
-          <h2 className="text-xl font-semibold mb-2">
+        <div className="card bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
             Welcome back, {authUser?.firstName}!
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Manage your platform from this dashboard.
           </p>
         </div>
@@ -96,11 +96,11 @@ export default function AdminDashboard() {
         {stats && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {/* Pending Vendors */}
-            <Link href="/admin/vendors?status=PENDING" className="card hover:shadow-2xl transition-all">
+            <Link href="/admin/vendors?status=PENDING" className="card bg-white dark:bg-gray-800 hover:shadow-2xl transition-all dark:border-gray-700">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Pending Vendors</p>
-                  <p className="text-3xl font-bold text-yellow-600">{stats.vendors.pending}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Pending Vendors</p>
+                  <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-500">{stats.vendors.pending}</p>
                 </div>
                 <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
                   <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,12 +111,12 @@ export default function AdminDashboard() {
             </Link>
 
             {/* Total Vendors */}
-            <div className="card">
+            <div className="card bg-white dark:bg-gray-800 dark:border-gray-700">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Total Vendors</p>
-                  <p className="text-3xl font-bold text-primary-600">{stats.vendors.total}</p>
-                  <p className="text-xs text-gray-500 mt-1">{stats.vendors.verified} verified</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Vendors</p>
+                  <p className="text-3xl font-bold text-primary-600 dark:text-primary-400">{stats.vendors.total}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">{stats.vendors.verified} verified</p>
                 </div>
                 <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
                   <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,11 +127,11 @@ export default function AdminDashboard() {
             </div>
 
             {/* Total Customers */}
-            <div className="card">
+            <div className="card bg-white dark:bg-gray-800 dark:border-gray-700">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Total Customers</p>
-                  <p className="text-3xl font-bold text-secondary-600">{stats.customers}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Customers</p>
+                  <p className="text-3xl font-bold text-secondary-600 dark:text-secondary-400">{stats.customers}</p>
                 </div>
                 <div className="w-12 h-12 bg-secondary-100 rounded-lg flex items-center justify-center">
                   <svg className="w-6 h-6 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -142,11 +142,11 @@ export default function AdminDashboard() {
             </div>
 
             {/* Total Orders */}
-            <div className="card">
+            <div className="card bg-white dark:bg-gray-800 dark:border-gray-700">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Total Orders</p>
-                  <p className="text-3xl font-bold text-blue-600">{stats.orders}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Orders</p>
+                  <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{stats.orders}</p>
                 </div>
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                   <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,40 +160,40 @@ export default function AdminDashboard() {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Link href="/admin/vendors?status=PENDING" className="card hover:shadow-2xl transition-all text-left">
+          <Link href="/admin/vendors?status=PENDING" className="card bg-white dark:bg-gray-800 dark:border-gray-700 hover:shadow-2xl transition-all text-left">
             <div className="flex items-center mb-4">
               <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
                 <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="ml-4 text-lg font-semibold">Review Vendors</h3>
+              <h3 className="ml-4 text-lg font-semibold text-gray-900 dark:text-white">Review Vendors</h3>
             </div>
-            <p className="text-gray-600">Approve or reject pending vendor applications</p>
+            <p className="text-gray-600 dark:text-gray-300">Approve or reject pending vendor applications</p>
           </Link>
 
-          <Link href="/admin/vendors" className="card hover:shadow-2xl transition-all text-left">
+          <Link href="/admin/vendors" className="card bg-white dark:bg-gray-800 dark:border-gray-700 hover:shadow-2xl transition-all text-left">
             <div className="flex items-center mb-4">
               <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
                 <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
               </div>
-              <h3 className="ml-4 text-lg font-semibold">Manage Vendors</h3>
+              <h3 className="ml-4 text-lg font-semibold text-gray-900 dark:text-white">Manage Vendors</h3>
             </div>
-            <p className="text-gray-600">View and manage all vendors on the platform</p>
+            <p className="text-gray-600 dark:text-gray-300">View and manage all vendors on the platform</p>
           </Link>
 
-          <Link href="/admin/customers" className="card hover:shadow-2xl transition-all text-left">
+          <Link href="/admin/customers" className="card bg-white dark:bg-gray-800 dark:border-gray-700 hover:shadow-2xl transition-all text-left">
             <div className="flex items-center mb-4">
               <div className="w-12 h-12 bg-secondary-100 rounded-lg flex items-center justify-center">
                 <svg className="w-6 h-6 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               </div>
-              <h3 className="ml-4 text-lg font-semibold">Customer Management</h3>
+              <h3 className="ml-4 text-lg font-semibold text-gray-900 dark:text-white">Customer Management</h3>
             </div>
-            <p className="text-gray-600">View and manage all customers on the platform</p>
+            <p className="text-gray-600 dark:text-gray-300">View and manage all customers on the platform</p>
           </Link>
         </div>
       </main>

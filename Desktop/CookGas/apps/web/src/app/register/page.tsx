@@ -61,7 +61,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4 transition-colors duration-300">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center space-x-2 mb-6">
@@ -70,8 +70,8 @@ export default function RegisterPage() {
             </div>
             <span className="text-3xl font-bold text-gradient">Jupitra</span>
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900 mt-4">Create Account</h1>
-          <p className="text-gray-600 mt-2">Join Jupitra today</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mt-4">Create Account</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-2">Join Jupitra today</p>
         </div>
 
         <div className="card">
@@ -84,7 +84,7 @@ export default function RegisterPage() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   First Name
                 </label>
                 <input
@@ -97,7 +97,7 @@ export default function RegisterPage() {
                 />
               </div>
               <div>
-                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Last Name
                 </label>
                 <input
@@ -112,7 +112,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Email Address
               </label>
               <input
@@ -127,7 +127,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Phone Number
               </label>
               <input
@@ -142,7 +142,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Account Type
               </label>
               <div className="grid grid-cols-2 gap-4">
@@ -150,8 +150,8 @@ export default function RegisterPage() {
                   type="button"
                   className={`p-4 border-2 rounded-lg transition-all ${
                     formData.role === 'CUSTOMER'
-                      ? 'border-primary-600 bg-primary-50'
-                      : 'border-gray-300 hover:border-gray-400'
+                      ? 'border-primary-600 bg-primary-50 dark:bg-primary-900/30 dark:border-primary-500 text-primary-700 dark:text-primary-300'
+                      : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-600 dark:text-gray-400'
                   }`}
                   onClick={() => setFormData({ ...formData, role: 'CUSTOMER' })}
                 >
@@ -164,8 +164,8 @@ export default function RegisterPage() {
                   type="button"
                   className={`p-4 border-2 rounded-lg transition-all ${
                     formData.role === 'VENDOR'
-                      ? 'border-primary-600 bg-primary-50'
-                      : 'border-gray-300 hover:border-gray-400'
+                      ? 'border-primary-600 bg-primary-50 dark:bg-primary-900/30 dark:border-primary-500 text-primary-700 dark:text-primary-300'
+                      : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-600 dark:text-gray-400'
                   }`}
                   onClick={() => setFormData({ ...formData, role: 'VENDOR' })}
                 >
@@ -178,7 +178,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Password
               </label>
               <input
@@ -193,7 +193,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Confirm Password
               </label>
               <input
@@ -217,9 +217,9 @@ export default function RegisterPage() {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-400">
               Already have an account?{' '}
-              <Link href="/login" className="text-primary-600 hover:text-primary-700 font-medium">
+              <Link href="/login" className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium">
                 Sign in
               </Link>
             </p>

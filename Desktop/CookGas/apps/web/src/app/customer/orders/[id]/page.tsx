@@ -117,11 +117,11 @@ export default function OrderDetailsPage({ params }: { params: { id: string } })
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-12 transition-colors duration-300">
       {/* Header */}
-      <header className="bg-white shadow mb-8">
+      <header className="bg-white dark:bg-gray-800 shadow dark:shadow-gray-900/50 mb-8 transition-colors duration-300">
         <div className="container-custom py-4">
-           <Link href="/customer/orders" className="text-gray-500 hover:text-primary-600 flex items-center gap-2">
+           <Link href="/customer/orders" className="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 flex items-center gap-2 transition-colors">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
@@ -133,8 +133,8 @@ export default function OrderDetailsPage({ params }: { params: { id: string } })
       <main className="container-custom">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-1">Order Details</h1>
-            <p className="text-gray-500">#{order.id}</p>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Order Details</h1>
+            <p className="text-gray-500 dark:text-gray-400">#{order.id}</p>
           </div>
           <div className="flex items-center gap-4">
             {getStatusBadge(order.status)}
@@ -156,24 +156,24 @@ export default function OrderDetailsPage({ params }: { params: { id: string } })
             
             {/* Items */}
             <div className="card">
-              <h2 className="text-lg font-semibold mb-4 border-b pb-2">Items</h2>
+              <h2 className="text-lg font-semibold mb-4 border-b border-gray-100 dark:border-gray-700 pb-2 text-gray-900 dark:text-white">Items</h2>
               <div className="space-y-4">
                 {order.items.map((item: any) => (
                    <div key={item.id} className="flex justify-between items-center py-2">
                       <div className="flex items-center gap-4">
-                         <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center text-xs text-gray-400">
+                         <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center text-xs text-gray-400 dark:text-gray-500">
                             {item.product.imageUrl ? (
                                 <img src={item.product.imageUrl} alt={item.product.name} className="w-full h-full object-cover rounded-lg"/>
                             ) : 'No Img'}
                          </div>
                          <div>
-                            <p className="font-medium text-gray-900">{item.product.name}</p>
-                             <p className="text-sm text-gray-500">{item.product.unit}</p>
+                            <p className="font-medium text-gray-900 dark:text-white">{item.product.name}</p>
+                             <p className="text-sm text-gray-500 dark:text-gray-400">{item.product.unit}</p>
                          </div>
                       </div>
                       <div className="text-right">
-                         <p className="text-sm text-gray-500">{item.quantity} x ₦{item.price.toLocaleString()}</p>
-                         <p className="font-medium">₦{item.subtotal.toLocaleString()}</p>
+                         <p className="text-sm text-gray-500 dark:text-gray-400">{item.quantity} x ₦{item.price.toLocaleString()}</p>
+                         <p className="font-medium text-gray-900 dark:text-white">₦{item.subtotal.toLocaleString()}</p>
                       </div>
                    </div>
                 ))}
@@ -183,23 +183,23 @@ export default function OrderDetailsPage({ params }: { params: { id: string } })
             {/* Vendor & Delivery Info */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="card">
-                    <h3 className="text-sm font-medium text-gray-500 mb-2 uppercase tracking-wide">Vendor</h3>
-                    <p className="font-semibold text-gray-900">{order.vendor.businessName}</p>
-                    <p className="text-gray-600">{order.vendor.businessAddress}</p>
+                    <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Vendor</h3>
+                    <p className="font-semibold text-gray-900 dark:text-white">{order.vendor.businessName}</p>
+                    <p className="text-gray-600 dark:text-gray-300">{order.vendor.businessAddress}</p>
                     {order.vendor.user?.phone && (
-                        <p className="text-primary-600 mt-2">{order.vendor.user.phone}</p>
+                        <p className="text-primary-600 dark:text-primary-400 mt-2">{order.vendor.user.phone}</p>
                     )}
                 </div>
                 
                  <div className="card">
-                    <h3 className="text-sm font-medium text-gray-500 mb-2 uppercase tracking-wide">Delivery Address</h3>
+                    <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Delivery Address</h3>
                     {order.address ? (
                          <>
-                            <p className="text-gray-900">{order.address.address}</p>
-                            {order.address.city && <p className="text-gray-600">{order.address.city}, {order.address.state}</p>}
+                            <p className="text-gray-900 dark:text-white">{order.address.address}</p>
+                            {order.address.city && <p className="text-gray-600 dark:text-gray-300">{order.address.city}, {order.address.state}</p>}
                          </>
                     ) : (
-                        <p className="text-gray-500 italic">No delivery address recorded.</p>
+                        <p className="text-gray-500 dark:text-gray-400 italic">No delivery address recorded.</p>
                     )}
                 </div>
             </div>
@@ -207,18 +207,18 @@ export default function OrderDetailsPage({ params }: { params: { id: string } })
 
           {/* Sidebar / Summary */}
           <div className="space-y-6">
-             <div className="card bg-gray-50">
-                <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
+             <div className="card bg-gray-50 dark:bg-gray-800/50">
+                <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Order Summary</h2>
                 <div className="space-y-3 text-sm">
-                    <div className="flex justify-between text-gray-600">
+                    <div className="flex justify-between text-gray-600 dark:text-gray-400">
                         <span>Subtotal</span>
                         <span>₦{(order.subtotal || order.items.reduce((sum: number, item: any) => sum + (item.subtotal || item.price * item.quantity), 0)).toLocaleString()}</span>
                     </div>
-                    <div className="flex justify-between text-gray-600">
+                    <div className="flex justify-between text-gray-600 dark:text-gray-400">
                         <span>Delivery Fee</span>
                         <span>{order.deliveryFee ? `₦${order.deliveryFee.toLocaleString()}` : "Free"}</span>
                     </div>
-                    <div className="border-t pt-3 flex justify-between font-bold text-gray-900 text-base">
+                    <div className="border-t border-gray-200 dark:border-gray-700 pt-3 flex justify-between font-bold text-gray-900 dark:text-white text-base">
                         <span>Total</span>
                         <span>₦{(order.totalAmount || (order.items.reduce((sum: number, item: any) => sum + (item.subtotal || item.price * item.quantity), 0) + (order.deliveryFee || 0))).toLocaleString()}</span>
                     </div>
@@ -226,8 +226,8 @@ export default function OrderDetailsPage({ params }: { params: { id: string } })
              </div>
 
              <div className="card">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">Order Date</h3>
-                <p className="text-gray-900">{new Date(order.createdAt).toLocaleString()}</p>
+                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Order Date</h3>
+                <p className="text-gray-900 dark:text-white">{new Date(order.createdAt).toLocaleString()}</p>
              </div>
              
              {order.status === 'DELIVERED' && (
@@ -245,16 +245,16 @@ export default function OrderDetailsPage({ params }: { params: { id: string } })
       {/* Review Modal */}
       {showRatingModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full p-6 transition-colors">
                 <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-bold">Rate this Order</h3>
-                    <button onClick={() => setShowRatingModal(false)} className="text-gray-400 hover:text-gray-600">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">Rate this Order</h3>
+                    <button onClick={() => setShowRatingModal(false)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
                 </div>
                 <form onSubmit={handleSubmitReview}>
                     <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Rating</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Rating</label>
                         <div className="flex gap-2">
                             {[1, 2, 3, 4, 5].map((star) => (
                                 <button
@@ -269,11 +269,11 @@ export default function OrderDetailsPage({ params }: { params: { id: string } })
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Comment (Optional)</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Comment (Optional)</label>
                         <textarea
                             value={comment}
                             onChange={(e) => setComment(e.target.value)}
-                            className="w-full px-3 py-2 border rounded-lg focus:ring-primary-500 focus:border-primary-500"
+                            className="w-full px-3 py-2 border rounded-lg focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white"
                             rows={3}
                             placeholder="Share your experience..."
                         />
@@ -282,7 +282,7 @@ export default function OrderDetailsPage({ params }: { params: { id: string } })
                         <button
                             type="button"
                             onClick={() => setShowRatingModal(false)}
-                            className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+                            className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
                         >
                             Cancel
                         </button>

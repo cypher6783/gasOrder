@@ -5,6 +5,9 @@ const prisma = new PrismaClient();
 
 async function createAdmin() {
   try {
+    console.log('Connecting to database...');
+    console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'Set' : 'Not set');
+    
     // Check if admin already exists
     const existingAdmin = await prisma.user.findFirst({
       where: { role: 'ADMIN' },

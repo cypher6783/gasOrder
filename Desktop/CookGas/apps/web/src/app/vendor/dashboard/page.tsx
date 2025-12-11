@@ -83,18 +83,18 @@ export default function VendorDashboard() {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold text-gray-900 mb-8">Dashboard Overview</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">Dashboard Overview</h1>
 
       {/* Gas Settings Card */}
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-8">
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 mb-8 transition-colors">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-lg font-bold text-gray-900">Cooking Gas Settings</h2>
-          <span className="text-sm text-gray-500">Manage your standardized gas product</span>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white">Cooking Gas Settings</h2>
+          <span className="text-sm text-gray-500 dark:text-gray-400">Manage your standardized gas product</span>
         </div>
         
         <form onSubmit={handleGasUpdate} className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Price per Kg (₦)
             </label>
             <input
@@ -110,7 +110,7 @@ export default function VendorDashboard() {
           </div>
 
           <div>
-             <label className="block text-sm font-medium text-gray-700 mb-2">
+             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Delivery Fee (₦)
              </label>
              <input
@@ -138,7 +138,7 @@ export default function VendorDashboard() {
                 }`}
               />
             </button>
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
               {gasSettings?.isActive ? 'In Stock' : 'Out of Stock'}
             </span>
           </div>
@@ -155,47 +155,47 @@ export default function VendorDashboard() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-gray-500 text-sm font-medium">Total Sales</h3>
-            <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Updated</span>
+            <h3 className="text-gray-500 dark:text-gray-400 text-sm font-medium">Total Sales</h3>
+            <span className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 text-xs px-2 py-1 rounded-full">Updated</span>
           </div>
-          <p className="text-2xl font-bold text-gray-900">₦{(stats?.totalSales || 0).toLocaleString()}</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">₦{(stats?.totalSales || 0).toLocaleString()}</p>
         </div>
-        <Link href="/vendor/orders" className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 block hover:shadow-md transition-shadow">
+        <Link href="/vendor/orders" className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 block hover:shadow-md transition-shadow dark:hover:shadow-gray-900/50">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-gray-500 text-sm font-medium">Total Orders</h3>
-            <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">All Time</span>
+            <h3 className="text-gray-500 dark:text-gray-400 text-sm font-medium">Total Orders</h3>
+            <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 text-xs px-2 py-1 rounded-full">All Time</span>
           </div>
-          <p className="text-2xl font-bold text-gray-900">{stats?.totalOrders || 0}</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats?.totalOrders || 0}</p>
         </Link>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-gray-500 text-sm font-medium">Active Products</h3>
-            <span className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full">In Stock</span>
+            <h3 className="text-gray-500 dark:text-gray-400 text-sm font-medium">Active Products</h3>
+            <span className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 text-xs px-2 py-1 rounded-full">In Stock</span>
           </div>
-          <p className="text-2xl font-bold text-gray-900">{stats?.activeProducts || 0}</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats?.activeProducts || 0}</p>
         </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-gray-500 text-sm font-medium">Rating</h3>
-            <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">Average</span>
+            <h3 className="text-gray-500 dark:text-gray-400 text-sm font-medium">Rating</h3>
+            <span className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400 text-xs px-2 py-1 rounded-full">Average</span>
           </div>
-          <p className="text-2xl font-bold text-gray-900">{(stats?.rating || 0).toFixed(1)}</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">{(stats?.rating || 0).toFixed(1)}</p>
         </div>
       </div>
 
       {/* Recent Activity / Products */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="p-6 border-b border-gray-100 flex justify-between items-center">
-          <h2 className="text-lg font-bold text-gray-900">Recent Products</h2>
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+        <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white">Recent Products</h2>
           <Link href="/vendor/products" className="text-primary-600 hover:text-primary-700 text-sm font-medium">
             View All
           </Link>
         </div>
         
         {products.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">
+          <div className="p-8 text-center text-gray-500 dark:text-gray-400">
             <p className="mb-4">You haven't added any products yet.</p>
             <Link href="/vendor/products/new" className="btn-primary inline-block">
               Add Your First Product
@@ -204,24 +204,24 @@ export default function VendorDashboard() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-gray-50 dark:bg-gray-700/50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Product</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Price</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Stock</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                 {products.map((product) => (
                   <tr key={product.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{product.name}</div>
+                      <div className="text-sm font-medium text-gray-900 dark:text-white">{product.name}</div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                       ₦{product.price.toLocaleString()}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                       {product.stock} {product.unit}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
