@@ -1,10 +1,25 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useTheme } from '@/contexts/ThemeContext'
 import { ThemeMode } from '@/store/theme'
 
 export default function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Prevent SSR flash
+  if (!mounted) {
+    return (
+      <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+        <div className="w-24 h-10" />
+      </div>
+    )
+  }
 
   const modes: { value: ThemeMode; label: string; icon: JSX.Element }[] = [
     {
