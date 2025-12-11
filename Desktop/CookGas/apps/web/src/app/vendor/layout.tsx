@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { useAuthStore } from '@/store/auth'
+import ThemeToggle from '@/components/ThemeToggle'
 
 export default function VendorLayout({
   children,
@@ -64,8 +65,8 @@ export default function VendorLayout({
   const SidebarContent = () => (
     <>
       <div className="p-6">
-        <Link href="/" className="text-2xl font-bold text-primary-600 block mb-8">
-          Jupitra <span className="text-gray-400 text-sm font-normal block">Vendor Portal</span>
+        <Link href="/" className="text-2xl font-bold text-primary-600 dark:text-primary-400 block mb-8">
+          Jupitra <span className="text-gray-400 dark:text-gray-500 text-sm font-normal block">Vendor Portal</span>
         </Link>
         
         <nav className="space-y-1">
@@ -77,8 +78,8 @@ export default function VendorLayout({
                 href={item.href}
                 className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                   isActive
-                    ? 'bg-primary-50 text-primary-700'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/20 dark:text-primary-400'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
                 }`}
               >
                 <svg className="mr-3 h-5 w-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -91,14 +92,17 @@ export default function VendorLayout({
         </nav>
       </div>
 
-      <div className="absolute bottom-0 w-full p-4 border-t border-gray-100">
+      <div className="absolute bottom-0 w-full p-4 border-t border-gray-100 dark:border-gray-700">
+        <div className="mb-4">
+          <ThemeToggle />
+        </div>
         <div className="flex items-center gap-3 px-2 mb-4">
-          <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center text-primary-700 font-bold">
+          <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center text-primary-700 dark:text-primary-400 font-bold">
             {user?.firstName?.[0]}{user?.lastName?.[0]}
           </div>
           <div className="overflow-hidden">
-            <p className="text-sm font-medium text-gray-900 truncate">{user?.firstName} {user?.lastName}</p>
-            <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+            <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{user?.firstName} {user?.lastName}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user?.email}</p>
           </div>
         </div>
         <button
@@ -120,13 +124,13 @@ export default function VendorLayout({
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Mobile Header with Hamburger */}
-      <div className="md:hidden fixed top-0 left-0 right-0 bg-white shadow-md z-50 px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold text-primary-600">
+      <div className="md:hidden fixed top-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-md z-50 px-4 py-3 flex items-center justify-between">
+        <Link href="/" className="text-xl font-bold text-primary-600 dark:text-primary-400">
           Jupitra
         </Link>
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="p-2 rounded-lg hover:bg-gray-100"
+          className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
           aria-label="Toggle menu"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -148,14 +152,14 @@ export default function VendorLayout({
       )}
 
       {/* Mobile Sidebar */}
-      <aside className={`md:hidden fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-50 transform transition-transform duration-300 ${
+      <aside className={`md:hidden fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg z-50 transform transition-transform duration-300 ${
         mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
         <SidebarContent />
       </aside>
 
       {/* Desktop Sidebar */}
-      <aside className="w-64 bg-white shadow-lg fixed h-full z-10 hidden md:block">
+      <aside className="w-64 bg-white dark:bg-gray-800 shadow-lg fixed h-full z-10 hidden md:block">
         <SidebarContent />
       </aside>
 

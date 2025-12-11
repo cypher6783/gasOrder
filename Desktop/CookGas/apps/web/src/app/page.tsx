@@ -1,8 +1,11 @@
+'use client'
+
 import Link from 'next/link'
+import ThemeToggle from '@/components/ThemeToggle'
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Header */}
       <header className="container-custom py-6">
         <nav className="flex items-center justify-between">
@@ -13,7 +16,8 @@ export default function HomePage() {
             <span className="text-2xl font-bold text-gradient">Jupitra</span>
           </div>
           <div className="flex items-center space-x-4">
-            <Link href="/login" className="text-gray-700 hover:text-primary-600 font-medium transition-colors">
+            <ThemeToggle />
+            <Link href="/login" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors">
               Login
             </Link>
             <Link href="/register" className="btn-primary px-6 py-2">
@@ -26,12 +30,12 @@ export default function HomePage() {
       {/* Hero Section */}
       <main className="container-custom py-20">
         <div className="text-center max-w-4xl mx-auto animate-fade-in">
-          <h1 className="text-6xl font-bold mb-6">
+          <h1 className="text-6xl font-bold mb-6 text-gray-900 dark:text-white">
             <span className="text-gradient">Gas Delivery</span>
             <br />
             Made Simple
           </h1>
-          <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto">
             Order cooking gas from verified vendors near you. Fast delivery, secure payments, and real-time tracking.
           </p>
           <div className="flex items-center justify-center space-x-4">
@@ -53,8 +57,8 @@ export default function HomePage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold mb-2">Find Vendors Nearby</h3>
-            <p className="text-gray-600">Discover verified gas vendors in your area with real-time availability</p>
+            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Find Vendors Nearby</h3>
+            <p className="text-gray-600 dark:text-gray-300">Discover verified gas vendors in your area with real-time availability</p>
           </div>
 
           <div className="card text-center animate-slide-up" style={{ animationDelay: '0.1s' }}>
@@ -63,8 +67,8 @@ export default function HomePage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold mb-2">Secure Payments</h3>
-            <p className="text-gray-600">Pay safely with escrow protection and multiple payment options</p>
+            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Secure Payments</h3>
+            <p className="text-gray-600 dark:text-gray-300">Pay safely with escrow protection and multiple payment options</p>
           </div>
 
           <div className="card text-center animate-slide-up" style={{ animationDelay: '0.2s' }}>
@@ -73,15 +77,15 @@ export default function HomePage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold mb-2">Fast Delivery</h3>
-            <p className="text-gray-600">Track your order in real-time and get gas delivered within hours</p>
+            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Fast Delivery</h3>
+            <p className="text-gray-600 dark:text-gray-300">Track your order in real-time and get gas delivered within hours</p>
           </div>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="container-custom py-12 mt-24 border-t">
-        <div className="text-center text-gray-600">
+      <footer className="container-custom py-12 mt-24 border-t dark:border-gray-700">
+        <div className="text-center text-gray-600 dark:text-gray-400">
           <p>&copy; 2024 Jupitra. All rights reserved.</p>
         </div>
       </footer>
