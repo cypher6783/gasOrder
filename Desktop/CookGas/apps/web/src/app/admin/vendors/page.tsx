@@ -178,12 +178,12 @@ export default function VendorManagement() {
             ) : (
               <div className="space-y-4">
                 {vendors.map((vendor) => (
-                  <div key={vendor.id} className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
-                    <div className="flex justify-between items-start">
+                  <div key={vendor.id} className="border border-gray-200 rounded-lg p-4 md:p-6 hover:shadow-md transition-shadow">
+                    <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
                       <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-lg font-semibold text-gray-900">{vendor.businessName}</h3>
-                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-2">
+                          <h3 className="text-base md:text-lg font-semibold text-gray-900">{vendor.businessName}</h3>
+                          <span className={`px-2 md:px-3 py-1 rounded-full text-xs font-medium ${
                             vendor.status === 'PENDING' ? 'bg-yellow-100 text-yellow-800' :
                             vendor.status === 'VERIFIED' ? 'bg-green-100 text-green-800' :
                             vendor.status === 'REJECTED' ? 'bg-red-100 text-red-800' :
@@ -193,23 +193,23 @@ export default function VendorManagement() {
                           </span>
                         </div>
                         
-                        <div className="grid grid-cols-2 gap-4 text-sm text-gray-600 mb-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600 mb-4">
                           <div>
                             <p className="font-medium text-gray-700">Contact Person</p>
-                            <p>{vendor.user.firstName} {vendor.user.lastName}</p>
-                            <p>{vendor.user.email}</p>
-                            <p>{vendor.user.phone}</p>
+                            <p className="break-words">{vendor.user.firstName} {vendor.user.lastName}</p>
+                            <p className="break-words">{vendor.user.email}</p>
+                            <p className="break-words">{vendor.user.phone}</p>
                           </div>
                           <div>
                             <p className="font-medium text-gray-700">Business Address</p>
-                            <p>{vendor.businessAddress}</p>
-                            <p className="text-xs text-gray-500 mt-1">
+                            <p className="break-words">{vendor.businessAddress}</p>
+                            <p className="text-xs text-gray-500 mt-1 break-words">
                               Lat: {vendor.latitude.toFixed(4)}, Lng: {vendor.longitude.toFixed(4)}
                             </p>
                           </div>
                         </div>
 
-                        <div className="flex gap-6 text-sm text-gray-600">
+                        <div className="flex flex-wrap gap-4 md:gap-6 text-sm text-gray-600">
                           <div>
                             <span className="font-medium">Products:</span> {vendor._count.products}
                           </div>
@@ -224,7 +224,7 @@ export default function VendorManagement() {
                         {(vendor.cacDocument || vendor.idDocument || vendor.proofOfAddress) && (
                           <div className="mt-4 pt-4 border-t border-gray-200">
                             <p className="text-sm font-medium text-gray-700 mb-2">KYC Documents:</p>
-                            <div className="flex gap-3 text-sm">
+                            <div className="flex flex-wrap gap-3 text-sm">
                               {vendor.cacDocument && (
                                 <a href={vendor.cacDocument} target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">
                                   CAC Document
@@ -246,20 +246,20 @@ export default function VendorManagement() {
                       </div>
 
                       {/* Actions */}
-                      <div className="flex flex-col gap-2 ml-6">
+                      <div className="flex flex-row md:flex-col gap-2 md:ml-6">
                         {vendor.status === 'PENDING' && (
                           <>
                             <button
                               onClick={() => handleApprove(vendor.id)}
                               disabled={actionLoading === vendor.id}
-                              className="btn-primary px-4 py-2 text-sm whitespace-nowrap"
+                              className="btn-primary px-4 py-2 text-sm whitespace-nowrap flex-1 md:flex-none"
                             >
                               {actionLoading === vendor.id ? 'Processing...' : 'Approve'}
                             </button>
                             <button
                               onClick={() => handleReject(vendor.id)}
                               disabled={actionLoading === vendor.id}
-                              className="btn bg-red-600 text-white hover:bg-red-700 px-4 py-2 text-sm whitespace-nowrap"
+                              className="btn bg-red-600 text-white hover:bg-red-700 px-4 py-2 text-sm whitespace-nowrap flex-1 md:flex-none"
                             >
                               Reject
                             </button>
@@ -269,7 +269,7 @@ export default function VendorManagement() {
                           <button
                             onClick={() => handleSuspend(vendor.id)}
                             disabled={actionLoading === vendor.id}
-                            className="btn bg-yellow-600 text-white hover:bg-yellow-700 px-4 py-2 text-sm whitespace-nowrap"
+                            className="btn bg-yellow-600 text-white hover:bg-yellow-700 px-4 py-2 text-sm whitespace-nowrap w-full md:w-auto"
                           >
                             Suspend
                           </button>
